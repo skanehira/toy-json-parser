@@ -42,6 +42,46 @@ func TestReadNumber(t *testing.T) {
 	}
 }
 
+func TestReadString(t *testing.T) {
+	tests := []struct {
+		in   string
+		want string
+	}{
+		{
+			in:   `"hello\n"`,
+			want: `hello\n`,
+		},
+		{
+			in:   `"1\r"`,
+			want: `1\r`,
+		},
+		{
+			in:   `"@a:o1\t"`,
+			want: `@a:o1\t`,
+		},
+		{
+			in:   `"\"\r\n\t"`,
+			want: `\"\r\n\t`,
+		},
+		{
+			in:   `"a\\b"`,
+			want: `a\\b`,
+		},
+		{
+			in:   `"a\n\b"`,
+			want: `a\n\b`,
+		},
+	}
+
+	for _, tt := range tests {
+		l := NewLexer(tt.in)
+		got := l.readString()
+		if tt.want != got {
+			t.Errorf("unexpected string. want: %s, got: %s", tt.want, got)
+		}
+	}
+}
+
 func TestNextToken(t *testing.T) {
 	tests := []struct {
 		in   string
@@ -94,6 +134,34 @@ func TestNextToken(t *testing.T) {
 			want: Token{
 				Type:    Illegal,
 				Literal: "+",
+			},
+		},
+		{
+			in: `"hello"`,
+			want: Token{
+				Type:    String,
+				Literal: "hello",
+			},
+		},
+		{
+			in: `"1"`,
+			want: Token{
+				Type:    String,
+				Literal: "1",
+			},
+		},
+		{
+			in: `"@a:o1"`,
+			want: Token{
+				Type:    String,
+				Literal: "@a:o1",
+			},
+		},
+		{
+			in: `"\""`,
+			want: Token{
+				Type:    String,
+				Literal: `\"`,
 			},
 		},
 	}

@@ -5,6 +5,7 @@ type TokenType string
 const (
 	Illegal TokenType = "Illegal"
 	Number            = "Number"
+	String            = "String"
 )
 
 type Token struct {
