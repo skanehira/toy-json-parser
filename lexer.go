@@ -43,22 +43,38 @@ func (l *Lexer) NextToken() Token {
 	switch l.ch {
 	case '-':
 		if unicode.IsNumber(rune(l.input[l.readPosition])) {
-			tok = NewToken(Number, l.readNumber())
+			lit := l.readNumber()
+			tok = Token{Type: NUMBER, Literal: lit}
 		} else {
 			tok = Token{
-				Type:    Illegal,
+				Type:    ILLEGAL,
 				Literal: string(l.ch),
 			}
 		}
+	case '{':
+		tok = NewToken(LBRACE, l.ch)
+	case '}':
+		tok = NewToken(RBRACE, l.ch)
+	case '[':
+		tok = NewToken(LBRACKET, l.ch)
+	case ']':
+		tok = NewToken(RBRACKET, l.ch)
+	case ':':
+		tok = NewToken(COLON, l.ch)
+	case ',':
+		tok = NewToken(COMMA, l.ch)
 	case '"':
-		tok = NewToken(String, l.readString())
+		lit := l.readString()
+		tok = Token{Type: STRING, Literal: lit}
 	default:
 		switch {
 		case unicode.IsNumber(rune(l.ch)):
-			tok = NewToken(Number, l.readNumber())
+			lit := l.readNumber()
+			tok = Token{Type: NUMBER, Literal: lit}
+			return tok
 		default:
 			tok = Token{
-				Type:    Illegal,
+				Type:    ILLEGAL,
 				Literal: string(l.ch),
 			}
 		}

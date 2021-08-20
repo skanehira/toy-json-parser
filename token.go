@@ -3,9 +3,15 @@ package json
 type TokenType string
 
 const (
-	Illegal TokenType = "Illegal"
-	Number            = "Number"
-	String            = "String"
+	ILLEGAL  TokenType = "ILLEGAL"
+	NUMBER             = "NUMBER"
+	STRING             = "STRING"
+	LBRACKET           = "LBRACKET"
+	RBRACKET           = "RBRACKET"
+	LBRACE             = "LBRACE"
+	RBRACE             = "RBRACE"
+	COLON              = "COLON"
+	COMMA              = "COMMA"
 )
 
 type Token struct {
@@ -13,9 +19,9 @@ type Token struct {
 	Literal string
 }
 
-func NewToken(tokenType TokenType, literal string) Token {
+func NewToken(tokenType TokenType, literal byte) Token {
 	return Token{
 		Type:    tokenType,
-		Literal: literal,
+		Literal: string(literal),
 	}
 }
