@@ -148,14 +148,14 @@ func (l *Lexer) readNull() string {
 }
 
 func (l *Lexer) readString() string {
-	l.readChar()
-	pos := l.position
+	pos := l.position + 1
 	for {
 		l.readChar()
 		if l.ch == '"' || l.ch == 0 {
 			break
 		}
 	}
+
 	return l.input[pos:l.position]
 }
 

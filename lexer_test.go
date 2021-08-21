@@ -67,6 +67,10 @@ func TestReadString(t *testing.T) {
 			in:   `"a\n\b"`,
 			want: `a\n\b`,
 		},
+		{
+			in:   `""`,
+			want: "",
+		},
 	}
 
 	for _, tt := range tests {
@@ -224,6 +228,7 @@ null
 true
 false
 [true, false, null]
+""
 `
 
 	l := NewLexer(in)
@@ -487,6 +492,12 @@ false
 			want: Token{
 				Type:    RBRACKET,
 				Literal: "]",
+			},
+		},
+		{
+			want: Token{
+				Type:    STRING,
+				Literal: "",
 			},
 		},
 	}
