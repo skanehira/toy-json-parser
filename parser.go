@@ -37,6 +37,11 @@ func (p *Parser) Parse() interface{} {
 		return num
 	case NULL:
 		return nil
+	case BOOL:
+		if p.curToken.Literal == "true" {
+			return true
+		}
+		return false
 	case STRING:
 		return p.curToken.Literal
 	case LBRACE:

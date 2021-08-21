@@ -221,6 +221,9 @@ func TestToken(t *testing.T) {
 {"pk": [1, 2], {"ck": "val"}}
 null
 [null, 1]
+true
+false
+[true, false, null]
 `
 
 	l := NewLexer(in)
@@ -424,6 +427,60 @@ null
 			want: Token{
 				Type:    NUMBER,
 				Literal: "1",
+			},
+		},
+		{
+			want: Token{
+				Type:    RBRACKET,
+				Literal: "]",
+			},
+		},
+		{
+			want: Token{
+				Type:    BOOL,
+				Literal: "true",
+			},
+		},
+		{
+			want: Token{
+				Type:    BOOL,
+				Literal: "false",
+			},
+		},
+		{
+			want: Token{
+				Type:    LBRACKET,
+				Literal: "[",
+			},
+		},
+		{
+			want: Token{
+				Type:    BOOL,
+				Literal: "true",
+			},
+		},
+		{
+			want: Token{
+				Type:    COMMA,
+				Literal: ",",
+			},
+		},
+		{
+			want: Token{
+				Type:    BOOL,
+				Literal: "false",
+			},
+		},
+		{
+			want: Token{
+				Type:    COMMA,
+				Literal: ",",
+			},
+		},
+		{
+			want: Token{
+				Type:    NULL,
+				Literal: "null",
 			},
 		},
 		{
