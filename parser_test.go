@@ -99,7 +99,7 @@ func TestParseObject(t *testing.T) {
 			},
 		},
 		{
-			in: `{"hello": "world", "obj": {"inner": "obj"}, "array": [1, 2, 10.5]}`,
+			in: `{"hello": "world", "obj": {"inner": "obj"}, "array": [1, 2, 10.5], "bool": true}`,
 			want: map[string]interface{}{
 				"hello": "world",
 				"obj":   map[string]interface{}{"inner": "obj"},
@@ -108,6 +108,7 @@ func TestParseObject(t *testing.T) {
 					2,
 					10.5,
 				},
+				"bool": true,
 			},
 		},
 	}
