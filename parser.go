@@ -35,6 +35,8 @@ func (p *Parser) Parse() interface{} {
 			panic("token is not float: " + err.Error())
 		}
 		return num
+	case NULL:
+		return nil
 	case STRING:
 		return p.curToken.Literal
 	case LBRACE:

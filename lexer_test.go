@@ -219,6 +219,8 @@ func TestToken(t *testing.T) {
 [1, "hello"]
 {"hello": 1}
 {"pk": [1, 2], {"ck": "val"}}
+null
+[null, 1]
 `
 
 	l := NewLexer(in)
@@ -392,6 +394,42 @@ func TestToken(t *testing.T) {
 			want: Token{
 				Type:    RBRACE,
 				Literal: "}",
+			},
+		},
+		{
+			want: Token{
+				Type:    NULL,
+				Literal: "null",
+			},
+		},
+		{
+			want: Token{
+				Type:    LBRACKET,
+				Literal: "[",
+			},
+		},
+		{
+			want: Token{
+				Type:    NULL,
+				Literal: "null",
+			},
+		},
+		{
+			want: Token{
+				Type:    COMMA,
+				Literal: ",",
+			},
+		},
+		{
+			want: Token{
+				Type:    NUMBER,
+				Literal: "1",
+			},
+		},
+		{
+			want: Token{
+				Type:    RBRACKET,
+				Literal: "]",
 			},
 		},
 	}

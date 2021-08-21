@@ -8,6 +8,8 @@ const (
 	ILLEGAL  TokenType = "ILLEGAL"
 	NUMBER             = "NUMBER"
 	STRING             = "STRING"
+	NULL               = "NULL"
+	BOOL               = "BOOL"
 	LBRACKET           = "LBRACKET"
 	RBRACKET           = "RBRACKET"
 	LBRACE             = "LBRACE"

@@ -135,7 +135,7 @@ func TestParseArray(t *testing.T) {
 			want: []interface{}{"a", "b", "c"},
 		},
 		{
-			in: `[{"hello": "world"}, 1, 10.5, "gorilla", [1, 2, 3]]`,
+			in: `[{"hello": "world"}, 1, 10.5, "gorilla", [1, 2, 3], null]`,
 			want: []interface{}{
 				map[string]interface{}{
 					"hello": "world",
@@ -146,6 +146,7 @@ func TestParseArray(t *testing.T) {
 				[]interface{}{
 					1, 2, 3,
 				},
+				nil,
 			},
 		},
 	}

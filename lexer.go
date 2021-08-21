@@ -66,6 +66,22 @@ func (l *Lexer) NextToken() Token {
 	case '"':
 		lit := l.readString()
 		tok = Token{Type: STRING, Literal: lit}
+	case 'n':
+		lit := l.readNull()
+		if lit == "null" {
+			tok = Token{
+				Type:    NULL,
+				Literal: "null",
+			}
+		} else {
+			tok = Token{
+				Type:    ILLEGAL,
+				Literal: lit,
+			}
+		}
+		return tok
+	case 't', 'f':
+		// TODO implement read bool
 	case 0:
 		tok = NewToken(EOF, l.ch)
 	default:
@@ -85,6 +101,23 @@ func (l *Lexer) NextToken() Token {
 	l.readChar()
 
 	return tok
+}
+
+func (l *Lexer) readBool() string {
+	return ""
+}
+
+func (l *Lexer) readNull() string {
+	pos := l.position
+	end := pos + 4
+	for l.position < end {
+		l.readChar()
+		if l.ch == 0 {
+			break
+		}
+	}
+
+	return l.input[pos:l.position]
 }
 
 func (l *Lexer) readString() string {

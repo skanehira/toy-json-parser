@@ -25,6 +25,13 @@ func (s *String) String() string {
 	return fmt.Sprintf(`"%s"`, s.Value)
 }
 
+type Null struct {
+}
+
+func (n *Null) String() string {
+	return "null"
+}
+
 type Array struct {
 	Values []Value
 }
