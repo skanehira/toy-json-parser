@@ -60,10 +60,6 @@ func TestReadString(t *testing.T) {
 			want: `@a:o1\t`,
 		},
 		{
-			in:   `"\"\r\n\t"`,
-			want: `\"\r\n\t`,
-		},
-		{
 			in:   `"a\\b"`,
 			want: `a\\b`,
 		},
@@ -155,13 +151,6 @@ func TestNextToken(t *testing.T) {
 			want: Token{
 				Type:    STRING,
 				Literal: "@a:o1",
-			},
-		},
-		{
-			in: `"\""`,
-			want: Token{
-				Type:    STRING,
-				Literal: `\"`,
 			},
 		},
 		{

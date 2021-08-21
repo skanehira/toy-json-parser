@@ -66,6 +66,8 @@ func (l *Lexer) NextToken() Token {
 	case '"':
 		lit := l.readString()
 		tok = Token{Type: STRING, Literal: lit}
+	case 0:
+		tok = NewToken(EOF, l.ch)
 	default:
 		switch {
 		case unicode.IsNumber(rune(l.ch)):
@@ -88,15 +90,11 @@ func (l *Lexer) NextToken() Token {
 func (l *Lexer) readString() string {
 	l.readChar()
 	pos := l.position
-	for l.ch != '"' {
-		if l.ch == '\\' {
-			escape := string(l.input[l.position : l.position+2])
-			switch escape {
-			case `\"`, `\n`, `\r`, `\t`:
-				l.readChar()
-			}
-		}
+	for {
 		l.readChar()
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
 	}
 	return l.input[pos:l.position]
 }
